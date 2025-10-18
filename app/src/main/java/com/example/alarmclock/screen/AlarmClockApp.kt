@@ -30,7 +30,7 @@ import com.example.alarmclock.scheduleAlarm
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlarmClockApp() {
+fun AlarmClockApp(modifier:Modifier = Modifier) {
     var alarms by remember { mutableStateOf(listOf<Alarm>()) }
     var showAddAlarmDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
