@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AlarmClockTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AlarmClockApp(modifier = Modifier.padding(innerPadding))
+                    AlarmClockApp()
                 }
             }
         }

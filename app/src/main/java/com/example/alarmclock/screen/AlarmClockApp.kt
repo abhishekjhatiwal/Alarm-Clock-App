@@ -16,18 +16,164 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.room.util.copy
+import com.example.alarmclock.AlarmViewModel
 import com.example.alarmclock.cancelAlarm
 import com.example.alarmclock.data.Alarm
+import com.example.alarmclock.data.AlarmEntity
 import com.example.alarmclock.scheduleAlarm
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AlarmClockApp(viewModel: AlarmViewModel = viewModel()) {
+    val alarms by viewModel.allAlarms.collectAsState()
+    var showAddAlarmDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        "Alarm Clock",
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
+                )
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showAddAlarmDialog = true },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ) {
+                Icon(Icons.Default.Add, "Add Alarm")
+            }
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            CurrentTimeCard()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            if (alarms.isEmpty()) {
+                EmptyAlarmsView()
+            } else {
+                AlarmsList(
+                    alarms = alarms,
+                    onToggleAlarm = { alarm ->
+                        val updated = alarm.copy(isEnabled = !alarm.isEnabled)
+                        viewModel.updateAlarm(updated)
+                        if (updated.isEnabled) {
+                            scheduleAlarm(context, updated)
+                        } else {
+                            cancelAlarm(context, updated)
+                        }
+                    },
+                    onDeleteAlarm = { alarm ->
+                        cancelAlarm(context, alarm)
+                        viewModel.deleteAlarm(alarm)
+                    }
+                )
+            }
+        }
+    }
+
+    if (showAddAlarmDialog) {
+        AddAlarmDialog(
+            onDismiss = { showAddAlarmDialog = false },
+            onAlarmSet = { hour, minute, tone, label ->
+                val newAlarm = AlarmEntity(
+                    hour = hour,
+                    minute = minute,
+                    tone = tone,
+                    label = label,
+                    isEnabled = true
+                )
+                viewModel.insertAlarm(newAlarm) { id ->
+                    val alarmWithId = newAlarm.copy(id = id)
+                    scheduleAlarm(context, alarmWithId)
+                }
+                showAddAlarmDialog = false
+            }
+        )
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmClockApp(modifier:Modifier = Modifier) {
@@ -115,3 +261,5 @@ fun AlarmClockApp(modifier:Modifier = Modifier) {
         )
     }
 }
+
+ */

@@ -10,10 +10,11 @@ import androidx.activity.compose.setContent
 import com.example.alarmclock.data.Alarm
 import java.util.*
 import android.content.BroadcastReceiver
+import com.example.alarmclock.data.AlarmEntity
 import com.example.alarmclock.screen.AlarmRingingScreen
 import com.example.alarmclock.ui.theme.AlarmClockTheme
 
-fun scheduleAlarm(context: Context, alarm: Alarm) {
+fun scheduleAlarm(context: Context, alarm: AlarmEntity) {
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val intent = Intent(context, AlarmReceiver::class.java).apply {
         putExtra("ALARM_ID", alarm.id)
@@ -44,7 +45,7 @@ fun scheduleAlarm(context: Context, alarm: Alarm) {
     )
 }
 
-fun cancelAlarm(context: Context, alarm: Alarm) {
+fun cancelAlarm(context: Context, alarm: AlarmEntity) {
     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val intent = Intent(context, AlarmReceiver::class.java)
     val pendingIntent = PendingIntent.getBroadcast(
@@ -86,7 +87,6 @@ class AlarmRingingActivity : ComponentActivity() {
                 AlarmRingingScreen(
                     onDismiss = { finish() },
                     onSnooze = {
-                        // Snooze for 10 minutes
                         snoozeAlarm(this, alarmId, alarmTone)
                         finish()
                     }
@@ -105,7 +105,7 @@ fun snoozeAlarm(context: Context, alarmId: Int, alarmTone: String) {
 
     val pendingIntent = PendingIntent.getBroadcast(
         context,
-        alarmId + 10000, // Different ID for snooze
+        alarmId + 10000,
         intent,
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
@@ -120,3 +120,4 @@ fun snoozeAlarm(context: Context, alarmId: Int, alarmTone: String) {
         pendingIntent
     )
 }
+
