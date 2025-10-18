@@ -68,7 +68,10 @@ fun CurrentTimeCard() {
                     color = Color.White
                 )
                 Text(
-                    text = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault()).format(currentTime.time),
+                    text = SimpleDateFormat(
+                        "EEEE, MMMM d",
+                        Locale.getDefault()
+                    ).format(currentTime.time),
                     fontSize = 18.sp,
                     color = Color.White.copy(alpha = 0.9f)
                 )
@@ -76,86 +79,3 @@ fun CurrentTimeCard() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-@Composable
-fun CurrentTimeCard() {
-    var currentTime by remember { mutableStateOf(Calendar.getInstance()) }
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            currentTime = Calendar.getInstance()
-            kotlinx.coroutines.delay(1000)
-        }
-    }
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.horizontalGradient(
-                        colors = listOf(
-                            Color(0xFF6200EE),
-                            Color(0xFF03DAC6)
-                        )
-                    )
-                )
-                .padding(24.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime.time),
-                    fontSize = 56.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Text(
-                    text = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault()).format(currentTime.time),
-                    fontSize = 18.sp,
-                    color = Color.White.copy(alpha = 0.9f)
-                )
-            }
-        }
-    }
-}
-
- */
