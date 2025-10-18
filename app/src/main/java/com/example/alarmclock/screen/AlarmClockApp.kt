@@ -30,7 +30,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.room.util.copy
 import com.example.alarmclock.AlarmViewModel
 import com.example.alarmclock.cancelAlarm
-import com.example.alarmclock.data.Alarm
 import com.example.alarmclock.data.AlarmEntity
 import com.example.alarmclock.scheduleAlarm
 

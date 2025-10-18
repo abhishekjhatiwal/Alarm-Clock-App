@@ -1,18 +1,7 @@
 package com.example.alarmclock.data
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
-data class Alarm(
-    val id: Int,
-    val hour: Int,
-    val minute: Int,
-    val isEnabled: Boolean = true,
-    val tone: String = "Default",
-    val label: String = ""
-)
-
 
 @Entity(tableName = "alarms")
 data class AlarmEntity(

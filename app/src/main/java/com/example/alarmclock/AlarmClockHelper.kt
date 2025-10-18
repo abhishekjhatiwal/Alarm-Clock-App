@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.alarmclock.data.Alarm
 import java.util.*
 import android.content.BroadcastReceiver
 import com.example.alarmclock.data.AlarmEntity
