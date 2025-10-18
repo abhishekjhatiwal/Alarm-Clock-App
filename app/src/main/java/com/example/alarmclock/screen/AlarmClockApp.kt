@@ -24,10 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.alarmclock.AddAlarmDialog
-import com.example.alarmclock.AlarmsList
-import com.example.alarmclock.CurrentTimeCard
-import com.example.alarmclock.EmptyAlarmsView
 import com.example.alarmclock.cancelAlarm
 import com.example.alarmclock.data.Alarm
 import com.example.alarmclock.scheduleAlarm
