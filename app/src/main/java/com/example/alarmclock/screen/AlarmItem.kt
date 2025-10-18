@@ -1,5 +1,6 @@
 package com.example.alarmclock.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import com.example.alarmclock.data.Alarm
 
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun AlarmItem(
     alarm: Alarm,
